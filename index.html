@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div class="container">
+    <br>
+    <div class="jumbotron">
+        <h1 class="display-4">Send Message</h1>
+        <br>
+        <input id="name" class="form-control" placeholder="sender">
+        <br>
+        <textarea id="message" class="form-control" placeholder="Your Message Here"></textarea>
+        <br>
+        <button id="send" onclick="sendMessage()" class="btn btn-success">Send</button>
+    </div>
+    <div id="messages">
+    </div>
+</div>
+<script>
+    function sendMessage() {
+        // Get the input element by its id
+        const nameInput = document.getElementById('name');
+        const messageInput = document.getElementById('message');
+
+        // Ensure the input element is found before accessing its value
+        if (nameInput || messageInput ) {
+            // Get the value of the input element
+            const nameValue = nameInput.value
+            const messageValue = messageInput.value
+            // Use the value as needed
+            console.log('sender:', nameValue,'reciever',messageValue);
+
+             // Example fetch code (uncomment to use)
+       
+                fetch('http://localhost:4000/sendmessage',{
+                        method: "POST",
+                        headers: {'Content-Type': 'application/json'},
+                        body: { sender: nameValue, message: messageValue, reciever: 'raju' }
+                }) 
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+
+        } else {
+            console.error('Input element with  not found.');
+        }
+        
+       
+    }
+</script>
+</body>
+</html>
